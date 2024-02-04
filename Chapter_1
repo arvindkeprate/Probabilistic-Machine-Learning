@@ -1,0 +1,46 @@
+# Importing necessary libraries
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+# Data for deterministic model
+hours_studied = np.linspace(0, 10, 100)
+test_score_deterministic = 5 * hours_studied + 50
+
+# Data for probabilistic model
+np.random.seed(0)
+test_score_probabilistic = 5 * hours_studied + 50 + np.random.normal(0, 10, 100)
+
+# More detailed data for probability distribution
+hours_studied_detailed = np.linspace(0, 10, 1000)
+test_score_probabilistic_detailed = 5 * hours_studied_detailed + 50 + np.random.normal(0, 15, 1000)
+
+# Creating three plots in one figure
+plt.figure(figsize=(18, 6))
+
+# Plot 1: Deterministic model
+plt.subplot(1, 3, 1)
+plt.plot(hours_studied, test_score_deterministic, color='blue')
+plt.title('Deterministic Model')
+plt.xlabel('Hours Studied')
+plt.ylabel('Test Score')
+plt.grid(True)
+
+# Plot 2: Probabilistic model data points
+plt.subplot(1, 3, 2)
+plt.scatter(hours_studied, test_score_probabilistic, color='red')
+plt.title('Probabilistic Model: Data Points')
+plt.xlabel('Hours Studied')
+plt.ylabel('Test Score')
+plt.grid(True)
+
+# Plot 3: Probability distribution
+plt.subplot(1, 3, 3)
+sns.kdeplot(test_score_probabilistic_detailed, color='green', bw_adjust=0.5)
+plt.title('Probability Distribution of Test Scores')
+plt.xlabel('Test Score')
+plt.ylabel('Density')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
